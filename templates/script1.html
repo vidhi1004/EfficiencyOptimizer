@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+     <title>OEE Optimization Assembly shop</title>
+    <style>
+        body {
+            font-family: Arial, serif;
+            margin: 0;
+            padding: 10px;
+        }
+        h1 {
+            font-family: serif;
+            display: float;
+            color:white;
+            float:center;
+            text-align:center;
+        }
+        .container-wrapper {
+            display: flex;
+            
+        }
+        .container {
+            width: 600px;
+            height:700px;
+            margin: 80px;
+            padding: 10px;
+            display: inline-block;
+            vertical-align: top;
+            border: 2px solid white;
+            bordr-radius:4px;
+            outline: 2px solid black;
+            background-color: rgb(1, 1, 17);
+            color:white;
+        }
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            text-align: left;
+            color:white;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border:2px solid gray;
+            cursor: pointer;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #A52A2A;
+            color: #FFFFFF;
+            border: 2px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        button:hover {
+            opacity: 0.5;
+            color: #808080;
+        }
+        button:active{
+            background-color: #FFFFFF;
+            color: #A52A2A;
+            opacity:1;
+        }
+        .results {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        body {
+                margin: 0;
+                padding: 0;
+                background-color:#D3D3D3;
+                color: black;
+                font-family: Arial,serif;
+            }
+            .logo img {
+                float: left;
+                display:inline-block;
+                margin-right:auto;
+                vertical-align:bottom;
+            }
+            .topnav nav{
+                display:flex;
+                flex:1;
+                justified-content:center;
+            }
+             .topnav h1 {
+                font-family: 'serif', Times, serif;
+                font-size: 200%;
+                color: white;
+                text-shadow: 5px 5px 10px gray;
+                margin: 0;
+                padding: 1em 0;
+                border-width:2px;
+            }
+
+            .topnav{
+                background-color: #000;
+                overflow:hidden;
+                display:flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 1em;
+            }
+            .topnav a{
+                text-decoration: none;
+                color:white;
+                margin-left:450px;
+                }
+
+            .ui-btn {
+                display:inline-block;
+            }
+            .S{
+                color:white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="logo">
+            <a href ="http://127.0.0.1:8001/start_app">
+                <img src="static\cummins logo.png" alt="Logo" width="101px" height="106px">
+            </a>
+        </div>
+      <div class="topnav">
+            <nav>
+              <h1><a href="#oeeoptimizer">OEE Optimization</a></h1>
+            </nav>
+            <a href="http://127.0.0.1:8001/start_script1" id ="refresh-btn"class="ui-btn ui-corner-all ui-icon-refresh ui-btn-icon-notext">Refresh Icon</a>
+      </div>
+    <div class="container-wrapper">
+        <div class="container">
+            <h1>OEE Optimization Input</h1>
+            <form action="/optimize_script1" method="post">
+                <label for="total-manpower">Total manpower available:</label>
+                <input type="number" min="0" id="total-manpower" name="total_manpower" placeholder="Enter total manpower..." required>
+                <br>
+                <div id="customer-orders">
+                    {% for assembly_type in assembly_types %}
+                        <label for="{{ assembly_type|replace(' ','_') }}">{{ assembly_type }} customer order:</label>
+                        <input type="number" min="0" id="{{ assembly_type|replace(' ','_') }}" name="{{ assembly_type|replace(' ','_') }}" placeholder="Enter customer order for {{ assembly_type }}..." required>
+                        <br>
+                    {% endfor %}
+                    <button type="Submit">SUBMIT</button>
+                </div>
+            </form>
+            <div id="results" class="results">
+                {% if results %}
+                    <h2>Optimal Solution:</h2>
+                    {% for assembly_type, result in results.items() %}
+                        <p>{{ assembly_type }}: {{ result.manpower }}: {{ result.oee }} :{{ result.production}}</p>
+                    {% endfor %}
+                    <p>Maximized OEE: {{ oee_max }}</p>
+                {% elif error %}
+                    <p>{{ error }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="container">
+            <h1>OEE Optimization Results</h1>
+            <center>
+            {% if success %}
+                <p>Maximized OEE: {{ maximized_oee }}</p>
+                <h2>Optimal Solution</h2>
+                {% for assembly_type, details in optimal_solution.items() %}
+                    <strong>{{ assembly_type }}</strong>:
+                    <br>
+                    Manpower: {{ details.manpower }}
+                    <br>
+                    OEE: {{ details.oee }}
+                    <br>
+                    PRODUCTION:{{ details.production }}
+                    <br>
+                    <br>
+                {% endfor %}
+            {% else %}
+                <p>{{ message }}</p>
+                <p class="S">Status: {{ status }}</p>
+            {% endif %}
+            </center>
+        </div>
+    </div>
+</body>
+</html>

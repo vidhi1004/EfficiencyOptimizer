@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+     <title> Optimizer</title>
+    <style>
+        body {
+            font-family: Arial, serif;
+            margin: 0;
+            padding: 10px;
+        }
+        h1 {
+            font-family: serif;
+            display: float;
+            color:white;
+            float:center;
+            text-align:center;
+        }
+       
+     
+        button {
+            margin:100px;
+            padding: 40px 60px;
+            background-color: #A52A2A;
+            color: #FFFFFF;
+            border: 2px;
+            cursor: pointer;
+            border-radius: 6px;
+            align:center;
+            font-size:30px;
+        }
+        button:hover {
+            opacity: 0.5;
+            color: #808080;
+        }
+        button:active{
+            background-color: #FFFFFF;
+            color: #A52A2A;
+            opacity:1;
+        }
+    
+        body {
+                margin: 0;
+                padding: 0;
+                background-color:#D3D3D3;
+                color: black;
+                font-family: Arial,serif;
+            }
+            .logo img {
+                float: left;
+                display:inline-block;
+                margin-right:auto;
+                vertical-align:bottom;
+            }
+            .topnav nav{
+                display:flex;
+                flex:1;
+                justified-content:center;
+            }
+             .topnav h1 {
+                font-family: 'serif', Times, serif;
+                font-size: 200%;
+                color: white;
+                text-shadow: 5px 5px 10px gray;
+                margin: 0;
+                padding: 1em 0;
+                border-width:2px;
+            }
+
+            .topnav{
+                background-color: #000;
+                overflow:hidden;
+                display:flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 1em;
+            }
+            .topnav a{
+                text-decoration: none;
+                color:white;
+                margin-left:450px;
+                }
+
+            .ui-btn {
+                display:inline-block;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="logo">
+            <a href="/.">
+              <img src="static\cummins logo.png" alt="Logo" width="101px" height="106px">
+            </a>
+        </div>
+      <div class="topnav">
+            <nav>
+              <h1><a href="#optimizer">Optimization</a></h1>
+            </nav>
+            <a href="/." id ="refresh-btn"class="ui-btn ui-corner-all ui-icon-refresh ui-btn-icon-notext">Refresh Icon</a>
+      </div>
+</head>
+<body>
+    <center>
+    <a href="/start_eu"><button>EU OPTIMIZATION</button></a>
+    <a href="/start_app"><button>OEE OPTIMIZATION</button></a>
+    </center>
+</body>
+</html>
